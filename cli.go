@@ -40,8 +40,54 @@ func main() {
 				}
 				// we log the results to our console
 				// using a trusty fmt.Println statement
+				fmt.Println("ns result : ")
 				for i := 0; i < len(ns); i++ {
 					fmt.Println(ns[i].Host)
+				}
+				return nil
+			},
+		},
+		{
+			Name:  "ip",
+			Usage: "Looks up the IP address for a particular host",
+			Flags: myFlags,
+			Action: func(c *cli.Context) error {
+				ip, err := net.LookupIP(c.String("host"))
+				if err != nil {
+					fmt.Println(err)
+				}
+				for i := 0; i < len(ip); i++ {
+					fmt.Println(ip[i])
+				}
+				return nil
+			},
+		},
+		{
+			Name:  "cname",
+			Usage: "Looks up the cname for a particular host",
+			Flags: myFlags,
+			Action: func(c *cli.Context) error {
+				cname, err := net.LookupCNAME(c.String("host"))
+				if err != nil {
+					fmt.Println(err)
+				}
+				for i := 0; i < len(cname); i++ {
+					fmt.Println(cname[i])
+				}
+				return nil
+			},
+		},
+		{
+			Name:  "mx",
+			Usage: "Looks up MX records for a particular host",
+			Flags: myFlags,
+			Action: func(c *cli.Context) error {
+				mx, err := net.LookupMX(c.String("host"))
+				if err != nil {
+					fmt.Println(err)
+				}
+				for i := 0; i < len(mx); i++ {
+					fmt.Println(mx[i])
 				}
 				return nil
 			},
